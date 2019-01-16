@@ -1,0 +1,6 @@
+welcome: "Welcome to Loan Calc"
+prompt_to_use: "If you would like to explore a loan ... press 'Y'"
+
+prompt_loan_amount: "Please enter the principle amount of a loan .../n
+                     example: $104,000.24 "
+loan_amount_invalid: "The loan amount entered is invalid ... please enter an amount."

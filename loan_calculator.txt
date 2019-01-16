@@ -1,0 +1,32 @@
+loan_calculator.txt
+
+pseudo-code for ruby exercise
+
+1. X	Greet user and announce program
+
+2. X	Ask if user wants to explore the terms of a loan
+
+3. X	Capture user input
+
+4. X	validate input
+
+5. X	Ask user to input loan amount
+
+6. X	validate input
+
+7.	Ask user to input loan duration
+
+8.	validate input
+
+9.	Ask user to input APR
+
+10.	validate input
+
+11.	Calculate monthly payment, total principle and total interest over life of loan.
+
+12.	Display calculated loan details to user
+
+13.	Ask user if they would like to explore another loan.
+		
+
+
