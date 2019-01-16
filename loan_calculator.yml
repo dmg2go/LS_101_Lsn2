@@ -1,6 +1,13 @@
 welcome: "Welcome to Loan Calc"
 prompt_to_use: "If you would like to explore a loan ... press 'Y'"
 
-prompt_loan_amount: "Please enter the principle amount of a loan .../n
-                     example: $104,000.24 "
-loan_amount_invalid: "The loan amount entered is invalid ... please enter an amount."
+prompt_loan_amount: "Please enter the principle amount of a loan ... example: $104,000.24 "
+loan_amount_invalid: "The loan amount entered is invalid ..."
+
+prompt_loan_duration: "Please enter the period of the loan in months."
+loan_duration_invalid: "The loan duration entered is invalid ... "
+
+prompt_loan_rate: "Please enter the annual interest rate ... example: 5.25%"
+loan_rate_invalid: "The interest rate entered is invalid ..."
+
+report_monthly_payment: "Your monthly payment is $"

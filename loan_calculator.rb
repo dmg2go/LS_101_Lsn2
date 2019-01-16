@@ -22,18 +22,17 @@ end
 
 def send_user_msg(msg_to_user)
   format_msg(msg_to_user)
-  gets.chomp
 end
 
 def get_user_loan_amount
   loop do  
     amount_string = solicit_user_input(MESSAGES['prompt_loan_amount'])
+    
     if validate_loan_amount(amount_string) == true
-      #loan_amount is valid - convert to numeric type for math calc & return
-      return loan_str_to_num(amount_string)
+      return loan_amnt_string_to_num(amount_string)
     else
-      send_user_msg(MESSAGES['loan_amount_invalid'])    
-      amount_string = solicit_user_input(MESSAGES['prompt_loan_amount'])
+      send_user_msg(MESSAGES['loan_amount_invalid'])
+      next
     end
   end
 end
@@ -43,45 +42,67 @@ def validate_loan_amount(loan_amount)
   loan_amount.match?(/\A[0-9]+\.?[0-9]*\z/)
 end
 
-def loan_str_to_num(loan_amount)
+def loan_amnt_string_to_num(loan_amount)
   numeric_loan_amount = "%0.2f" %[loan_amount]
-  return numeric_loan_amount
+  return numeric_loan_amount.to_f
+end
+
+def get_user_loan_duration
+  loop do
+    duration_string = solicit_user_input(MESSAGES['prompt_loan_duration'])
+
+    if validate_loan_duration(duration_string) == true
+      return duration_string.to_i
+    else
+      send_user_msg(MESSAGES['loan_duration_invalid'])
+    end
+
+  end
+end
+
+def validate_loan_duration(loan_duration)
+  loan_duration.match?(/\A[0-9]+\z/)
+end
+
+def get_monthly_interest_rate
+  loop do  
+    int_rate_string = solicit_user_input(MESSAGES['prompt_loan_rate'])
+    
+    if validate_loan_rate(int_rate_string) == true
+      #binding.pry
+      return loan_rate_string_to_num(int_rate_string)
+    else
+      send_user_msg(MESSAGES['loan_rate_invalid'])
+      next
+    end
+  end
+end
+
+def validate_loan_rate(int_rate_string)
+  int_rate_string.delete!('% ')
+  int_rate_string.match?(/\A[0-9]+\.?[0-9]*\z/)
+end
+
+def loan_rate_string_to_num(int_rate_string)
+numeric_annual_rate = ("%0.2f" %[int_rate_string]).to_f/100
+numeric_month_rate = numeric_annual_rate/12.round(4)
 end
 
 
-
 # => begin procedural code
-format_msg(MESSAGES['welcome'])
+send_user_msg(MESSAGES['welcome'])
 
 loop do
-  format_msg(MESSAGES['prompt_to_use'])
-  yes_to_use = gets.chomp
-
+  yes_to_use = solicit_user_input(MESSAGES['prompt_to_use'])
+ 
   if yes_to_use.downcase != 'y' then break end
 
-  loan_principle = nil
-  loan_term_months = nil
-  loan_rate_percent = nil
-
-  # prompt for loan_amount
   loan_principle = get_user_loan_amount
+  loan_term_months = get_user_loan_duration
+  monthly_interest_rate = get_monthly_interest_rate
+  mo_payment = loan_principle * (monthly_interest_rate / (1 - (1 + monthly_interest_rate)**(-loan_term_months)))
 
-  puts loan_principle
-
-
-  # prompt for loan_duration
-
-  #validate
-
-  # prompt for loan interest_rate
-
-  #validate
-
-  puts 'will i get here?'
-  binding.pry
-
-
-
+  send_user_msg (MESSAGES['report_monthly_payment'] << "#{mo_payment.round(2)}")
 end
 
 puts "Bye!"
