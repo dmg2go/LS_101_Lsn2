@@ -1,5 +1,7 @@
 welcome: "Welcome to Loan Calc"
-prompt_to_use: "If you would like to explore a loan ... press 'Y'"
+prompt_to_use: "Press 'y' if you would like to calculate the \n
+                \t monthly payment for a given principle, \n
+                \t term and interest rate."
 
 prompt_loan_amount: "Please enter the principle amount of a loan ... example: $104,000.24 "
 loan_amount_invalid: "The loan amount entered is invalid ..."
@@ -11,3 +13,5 @@ prompt_loan_rate: "Please enter the annual interest rate ... example: 5.25%"
 loan_rate_invalid: "The interest rate entered is invalid ..."
 
 report_monthly_payment: "Your monthly payment is $"
+
+goodbye: "Good Bye"
