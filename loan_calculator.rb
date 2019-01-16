@@ -88,21 +88,33 @@ numeric_annual_rate = ("%0.2f" %[int_rate_string]).to_f/100
 numeric_month_rate = numeric_annual_rate/12.round(4)
 end
 
-
 # => begin procedural code
 send_user_msg(MESSAGES['welcome'])
 
 loop do
   yes_to_use = solicit_user_input(MESSAGES['prompt_to_use'])
- 
+
   if yes_to_use.downcase != 'y' then break end
 
   loan_principle = get_user_loan_amount
   loan_term_months = get_user_loan_duration
   monthly_interest_rate = get_monthly_interest_rate
-  mo_payment = loan_principle * (monthly_interest_rate / (1 - (1 + monthly_interest_rate)**(-loan_term_months)))
 
-  send_user_msg (MESSAGES['report_monthly_payment'] << "#{mo_payment.round(2)}")
+  loan_terms_display = <<~OUT
+        The terms of this loan are as follows:
+
+    |==>>  loan principle:     $#{format('%02.2f', loan_principle)}
+    |==>>  loan term (months):  #{loan_term_months}
+    |==>>  interest rate (APR): #{format('%02.2f', (monthly_interest_rate * 100 * 12))}%
+
+  OUT
+
+  binding.pry
+  mo_payment = loan_principle * 
+                (monthly_interest_rate / 
+                (1 - (1 + monthly_interest_rate)**(-loan_term_months)))
+  send_user_msg(loan_terms_display)
+  send_user_msg(MESSAGES['report_monthly_payment'] + "#{format('%02.2f', mo_payment)}")
 end
 
-puts "Bye!"
+send_user_msg(MESSAGES['goodbye'])
