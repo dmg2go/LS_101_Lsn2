@@ -15,22 +15,6 @@ def format_msg(message_string)
   puts "|==>  #{message_string}"
 end
 
-def solicit_loan_amount
-  input_is_valid = nil
-  until input_is_valid == true
-
-    format_msg(MESSAGES['prompt_loan_amount'])
-    amount_string = gets.chomp
-    valid = validate_loan_amount(amount_string)
-
-    if valid
-      return loan_str_to_num(amount_string)
-    else
-      format_msg(MESSAGES['loan_amount_invalid'])
-    end
-  end
-end
-
 def solicit_user_input(prompt_msg)
   format_msg(prompt_msg)
   gets.chomp
